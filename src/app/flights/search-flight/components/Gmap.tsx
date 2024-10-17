@@ -418,7 +418,7 @@ function getFlightIconSVG(price) {
 
 
 
-const Gmap = ({ data, loading, originDetails }) => {
+const Gmap = ({ data, loading, originDetails, googleMapsApiKey }) => {
 
   const [infoData, setInfoData] = useState(null);
   const [zoomData, setZoomData] = useState({
@@ -630,10 +630,10 @@ const Gmap = ({ data, loading, originDetails }) => {
         )}
       </div>
 
-      {loading ? (
-        <GmapWrapper loading={true}></GmapWrapper>
-      ) : (
-        <GmapWrapper zoomData={zoomData} loading={loading}>
+      {(loading && googleMapsApiKey) ? (
+        <GmapWrapper loading={true} googleMapsApiKey={googleMapsApiKey}></GmapWrapper>
+      ) : googleMapsApiKey && (
+        <GmapWrapper zoomData={zoomData} loading={loading} googleMapsApiKey={googleMapsApiKey}>
           <>
             {data?.map((marker, index) => (
               <Marker
@@ -718,7 +718,7 @@ export default Gmap;
 // const Map = (props) => {
 //   const { isLoaded, loadError } = useJsApiLoader({
 //     id: 'google-map-script',
-//     googleMapsApiKey: `${'AIzaSyDeTjmhZMvi4_9Od0IXq2rz49xWX1_H80Y'}`,
+//     googleMapsApiKey: `${''}`,
 //   })
 
 //   var hisData = [];
@@ -843,7 +843,7 @@ export default Gmap;
 // const Gmap = ({ data, loading, originDetails }) => {
 //   const { isLoaded, loadError } = useJsApiLoader({
 //     id: "google-map-script",
-//     googleMapsApiKey: "AIzaSyDeTjmhZMvi4_9Od0IXq2rz49xWX1_H80Y" // Replace with your Google API key
+//     googleMapsApiKey: "" // Replace with your Google API key
 //   });
 
 //   const [infoData, setInfoData] = useState(null);

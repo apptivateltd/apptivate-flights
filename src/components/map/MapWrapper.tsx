@@ -3,6 +3,7 @@
 import React, { useCallback, useRef } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { Card, CardContent } from "../ui/card";
+import { getApiKey } from "@/lib/api";
 
 const mapOptions = {
 	libraries: ["places"],
@@ -16,7 +17,7 @@ const mapOptions = {
 		fullScreenControl: true,
 		mapTypeControl: false,
 	},
-	googleMapsApiKey: 'AIzaSyApuh1zn8A1BMvyoY5GtgcB9Zl6EMbT7c0', //AIzaSyApuh1zn8A1BMvyoY5GtgcB9Zl6EMbT7c0
+	googleMapsApiKey: 'AlzaSyDSYZ2dl5iJGvJ9o7F8dHXZqi4qCrffwv4',
 	zoomOut: 5,
 	zoomIn: 20,
 	initialCenter: {
@@ -42,9 +43,9 @@ const mapOptions = {
 // 	);
 // };
 
-const GmapWrapper = ({ zoomData, loading, children }) => {
+const GmapWrapper = ({ zoomData, loading, children,googleMapsApiKey }) => {
 	const { isLoaded, loadError } = useLoadScript({
-		googleMapsApiKey: mapOptions.googleMapsApiKey,
+		googleMapsApiKey: googleMapsApiKey,
 		libraries: mapOptions.libraries,
 	});
 	const mapRef = useRef();

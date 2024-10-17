@@ -1,3 +1,5 @@
+'use server';
+
 export const getFlights = async (data) => {
   const { fromDate, toDate, fromPlace, toPlace, fClass, adults, children } =
     data;
@@ -113,5 +115,13 @@ export const getActiveAirports = async () => {
 
   return res.json();
 };
+
+export const getApiKey = async () => {
+  const apiKey = process.env.GOOGLE_API_KEY || "";
+
+  return apiKey;
+
+};
+
 
 

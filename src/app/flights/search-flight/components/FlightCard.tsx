@@ -9,6 +9,8 @@ import { SortFilter } from "./sort-filter";
 import { differenceInMinutes } from "date-fns";
 import { useFlights } from "../data/use-flights";
 import Gmap from "./Gmap";
+import { useEffect, useState } from "react";
+import { getApiKey } from "@/lib/api";
 
 const FlightCard = ({
   flightsData: data,
@@ -19,7 +21,21 @@ const FlightCard = ({
   toPlace: any;
   originDetails: any;
 }) => {
+  const [googleMapsApiKey, setgoogleMapsApiKey] = useState(null);
+
+  useEffect(()=>{
+    const getKey = async ()=>{
+      const key = await getApiKey();
+
+      console.log(key)
+
+      setgoogleMapsApiKey(key);
+    }
+
+    getKey();
+  },[])
   const modifiedData = [];
+
   const [state, setState] = useFlights();
   const destinations = state?.destinations
   if (toPlace === "Everywhere" && destinations) {
@@ -54,6 +70,8 @@ const FlightCard = ({
       }
     : null;
 
+    console.log(googleMapsApiKey)
+
 
 
   return (
@@ -65,6 +83,7 @@ const FlightCard = ({
           loading={false}
           getData={() => console.log("abcd")}
           originDetails={originDetails}
+          googleMapsApiKey={googleMapsApiKey}
         />
       ) : (
         <div className="grid grid-cols-4">
